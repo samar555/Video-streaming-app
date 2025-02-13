@@ -6,8 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class VideoMetaData {
 	
 	
@@ -17,6 +25,10 @@ public class VideoMetaData {
 	
 	private String videoName;
 	
-	private String videlFilePath;
+	private String videoDescription;
+	
+	private String contentType;
+	
+	private String videoFilePath;
 
 }
