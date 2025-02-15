@@ -20,8 +20,7 @@ public class VideoMetaData {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long videoId;
+	private String videoId;
 	
 	private String videoName;
 	
