@@ -1,7 +1,6 @@
 package app.netlify.sachin1008.services;
 
 import java.io.InputStream;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +10,9 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.http.HttpRange;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,5 +71,19 @@ public class VideoMetaDataService {
 		}
 
 	}
+	
+	  public ResourceRegion getResourceRegion(FileSystemResource video, org.springframework.http.HttpHeaders headers, long contentLength) {
+	        long rangeStart = 0;
+	        long rangeEnd = Math.min(1024 * 1024, contentLength - 1); // Default 1MB chunks
+
+	        if (headers.getRange().size() > 0) {
+	            HttpRange range = headers.getRange().get(0);
+	            rangeStart = range.getRangeStart(contentLength);
+	            rangeEnd = range.getRangeEnd(contentLength);
+	        }
+
+	        long rangeLength = rangeEnd - rangeStart + 1;
+	        return new ResourceRegion(video, rangeStart, rangeLength);
+	    }
 
 }
