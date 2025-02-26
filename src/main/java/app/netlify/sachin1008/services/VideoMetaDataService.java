@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +86,14 @@ public class VideoMetaDataService {
 	        long rangeLength = rangeEnd - rangeStart + 1;
 	        return new ResourceRegion(video, rangeStart, rangeLength);
 	    }
-
+     
+	  
+	  public VideoMetaData getVideo() {
+		  
+		List<VideoMetaData> videos=  dataRepo.findAll();
+		  int lastvideo=videos.size();
+		  int randomVideo=new Random().nextInt(0,lastvideo);
+		  System.out.println("random video is "+randomVideo);
+		  return videos.get(randomVideo);
+	  }
 }
